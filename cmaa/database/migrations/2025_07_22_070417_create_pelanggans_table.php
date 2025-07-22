@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pelanggans', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->string('kode')->unique(); // Misal: CMAA1234567
-            $table->timestamps();
-        });
+       Schema::create('pelanggans', function (Blueprint $table) {
+    $table->id();
+    $table->string('nama');
+    $table->string('kartu_id')->unique(); // ID unik: MCAA123456
+    $table->integer('total_cuci')->default(0);
+    $table->timestamps();
+});
+
     }
 
     /**
