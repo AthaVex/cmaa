@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('pelanggans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
             $table->string('kode')->unique(); // Misal: CMAA1234567
             $table->timestamps();
         });

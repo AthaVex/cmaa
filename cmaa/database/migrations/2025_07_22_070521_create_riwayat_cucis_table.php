@@ -9,12 +9,12 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('riwayat_cucis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pelanggan_id')->constrained()->onDelete('cascade');
-            $table->timestamp('waktu_cuci')->useCurrent();
+            $table->timestamps(); // created_at = waktu cuci
         });
     }
 
