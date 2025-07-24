@@ -10,7 +10,7 @@
              class="fixed inset-0 bg-black bg-opacity-70 items-center justify-center z-50 hidden">
             <div class="bg-white p-6 rounded-lg shadow-xl text-center animate__animated animate__bounceIn">
                 <h2 class="text-2xl font-bold text-green-600 mb-2">🎉 Selamat!</h2>
-                <p class="mb-4 text-gray-700">Pelanggan mendapatkan <strong>1x cuci gratis</strong>!</p>
+                <p class="mb-4 text-gray-700">Anda mendapatkan <strong>1x cuci gratis</strong>!</p>
                 <button onclick="tutupPopup()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
                     Tutup
                 </button>
@@ -45,8 +45,8 @@
             .then(res => res.json())
             .then(data => {
                 if (data.status === "success") {
-                    document.getElementById('result').innerHTML =
-                        `✅ ${data.nama} telah dicuci. Total sekarang: ${data.total_cuci}x`;
+                   document.getElementById('result').innerHTML =
+    `✅ Scan berhasil. Total cuci pelanggan sekarang: ${data.total_cuci}x`;
 
                     if (data.gratis) {
                         tampilkanPopup();

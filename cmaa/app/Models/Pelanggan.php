@@ -9,5 +9,11 @@ class Pelanggan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama', 'kartu_id', 'total_cuci'];
+    // Kolom yang bisa diisi (mass assignable)
+    protected $fillable = [
+        'nama',
+        'kartu_id',
+        'qr_code',
+        'total_cuci',
+    ];
 }

@@ -20,6 +20,8 @@ class RiwayatCuci extends Model
         'waktu_cuci' => 'datetime',
     ];
 
+    public $timestamps = false; // ⛔ Nonaktifkan timestamps
+
     // Relasi: RiwayatCuci milik satu pelanggan
     public function pelanggan()
     {

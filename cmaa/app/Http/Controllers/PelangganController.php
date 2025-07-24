@@ -4,46 +4,57 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pelanggan;
+use Illuminate\Support\Str;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PelangganController extends Controller
 {
-    // Menampilkan daftar pelanggan
-    public function index()
+    public function index(Request $request)
     {
-        $pelanggans = Pelanggan::all();
+        $query = Pelanggan::query();
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where('kartu_id', 'like', "%{$search}%");
+        }
+
+        $pelanggans = $query->latest()->get();
+
         return view('admin.pelanggan.index', compact('pelanggans'));
     }
 
-    // Menampilkan form tambah pelanggan
     public function create()
     {
         return view('admin.pelanggan.create');
     }
 
-    // Menyimpan pelanggan baru ke database
     public function store(Request $request)
     {
-        $request->validate([
-            'nama' => 'required|string|max:255',
-        ]);
+        $kartuId = 'MCAA' . rand(100000, 999999);
 
-        // Generate ID unik (MCAA + angka acak)
-        do {
-            $kartu_id = 'MCAA' . rand(100000, 999999);
-        } while (Pelanggan::where('kartu_id', $kartu_id)->exists());
-
-        // Simpan data
         Pelanggan::create([
-            'nama' => $request->nama,
-            'kartu_id' => $kartu_id,
+            'kartu_id' => $kartuId,
+            'total_cuci' => 0,
         ]);
 
-        return redirect()->route('pelanggan.index')->with('success', 'Pelanggan berhasil ditambahkan!');
+        return redirect()->route('pelanggan.index')->with('success', 'Pelanggan baru berhasil ditambahkan!');
     }
 
-    // ✅ Menampilkan form untuk scan pelanggan
-    public function form()
+    public function show($id)
     {
-        return view('admin.pelanggan.scan.form');
+        $pelanggan = Pelanggan::findOrFail($id);
+        return view('admin.pelanggan.show', compact('pelanggan'));
+    }
+
+    public function print($id)
+    {
+        $pelanggan = Pelanggan::findOrFail($id);
+        return view('admin.pelanggan.print', compact('pelanggan'));
+    }
+
+    public function printAll() // ✅ sudah diperbaiki
+    {
+        $pelanggans = Pelanggan::all();
+        return view('admin.pelanggan.print-all', compact('pelanggans'));
     }
 }
