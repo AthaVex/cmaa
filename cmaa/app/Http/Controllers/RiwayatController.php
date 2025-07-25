@@ -20,7 +20,6 @@ class RiwayatController extends Controller
     public function destroyAll()
     {
         RiwayatCuci::truncate();
-
         return redirect()->route('riwayat.index')->with('success', 'Semua riwayat cuci berhasil dihapus.');
     }
 
@@ -49,11 +48,12 @@ class RiwayatController extends Controller
             $monthlyQuery->where('pelanggan_id', $pelangganId);
         }
 
-        // Group by tanggal dan bulan
+        // Kelompokkan data mingguan berdasarkan hari (Senin, Selasa, dst.)
         $weeklyData = $weeklyQuery->get()->groupBy(function ($item) {
-            return $item->waktu_cuci->format('Y-m-d');
+            return $item->waktu_cuci->locale('id')->translatedFormat('l');
         });
 
+        // Kelompokkan data bulanan berdasarkan bulan (format Y-m)
         $monthlyData = $monthlyQuery->get()->groupBy(function ($item) {
             return $item->waktu_cuci->format('Y-m');
         });

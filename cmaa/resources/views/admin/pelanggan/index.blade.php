@@ -23,11 +23,18 @@
             </form>
 
             {{-- Tombol Aksi --}}
-            <div class="flex justify-between items-center mb-4">
-                <a href="{{ route('pelanggan.print.all') }}" target="_blank"
-                   class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">
-                    🖨️ Cetak Semua Kartu
-                </a>
+            <div class="flex flex-wrap justify-between items-center gap-4 mb-4">
+                <div class="flex gap-2">
+                    <a href="{{ route('pelanggan.print.all') }}" target="_blank"
+                       class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">
+                        🖨️ Cetak Semua Kartu
+                    </a>
+
+                    <a href="{{ route('riwayat.rekapGabungan') }}"
+                       class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded">
+                        📊 Rekap Cuci (Gabungan)
+                    </a>
+                </div>
 
                 <a href="{{ route('pelanggan.create') }}"
                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
